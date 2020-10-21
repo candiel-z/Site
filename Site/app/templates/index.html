@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Перегляд
+
+{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href="static/css/style.css">
+
+<table style="width:100%">
+    <tr>
+        <th>Ім'я</th>
+        <th>Прізвище</th>
+        <th>Моб. номер</th>
+    </tr>
+
+{% for order in orders[::-1] %}
+
+    <tr>
+        <td>{{ order[1] }}</td>
+        <td>{{ order[2] }}</td>
+        <td>{{ order[3] }}</td>
+    </tr>
+
+{% endfor %}
+
+</table> 
+        
+{% endblock %}

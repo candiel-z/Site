@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="shortcut icon" href="static/img/favicon.png">
+        <title>
+            {% block title %}
+            {% endblock %} | Site
+        </title>
+    </head>
+
+    <header>
+        <a href="/">Перегляд</a>
+        <a href="/add">Додати</a>
+        <hr>
+    </header>
+
+    <body>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
