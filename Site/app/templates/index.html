@@ -12,17 +12,19 @@
 
 <table style="width:100%">
     <tr>
+        <th>N</th>
         <th>Ім'я</th>
         <th>Прізвище</th>
         <th>Моб. номер</th>
     </tr>
 
-{% for order in orders[::-1] %}
+{% for client in clients[::-1] %}
 
     <tr>
-        <td>{{ order[1] }}</td>
-        <td>{{ order[2] }}</td>
-        <td>{{ order[3] }}</td>
+        <td>{{ client[0] }}</td>
+        <td>{{ client[1] }}</td>
+        <td>{{ client[2] }}</td>
+        <td>{{ client[3] }}</td>
     </tr>
 
 {% endfor %}
