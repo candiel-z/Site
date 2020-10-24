@@ -3,7 +3,7 @@ drop table if exists Clients;
 drop table if exists Orders;
 
 create table if not exists Clients (
-                    ididentifier integer unique,
+                    identifier integer unique,
                     first_name text not null,
                     second_name text not null,
                     mobile_number text not null unique

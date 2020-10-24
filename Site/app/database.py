@@ -14,7 +14,7 @@ class Database(object):
 
         self._execute("""
             create table if not exists Clients (
-                    ididentifier integer unique,
+                    identifier integer unique,
                     first_name text not null,
                     second_name text not null,
                     mobile_number text not null unique
@@ -22,7 +22,7 @@ class Database(object):
         """)
         self._execute("""
             create table if not exists Orders (
-                    ididentifier integer,
+                    identifier integer,
                     product_name text not null,
                     product_amount integer not null
             );
@@ -32,7 +32,7 @@ class Database(object):
     def add(self, data) -> None:
         """"""
         
-        ididentifier = data.get('ididentifier')
+        identifier = data.get('identifier')
         first_name = data.get('first_name')
         second_name = data.get('second_name')
         mobile_number = data.get('mobile_number')
@@ -42,22 +42,30 @@ class Database(object):
 
         self._execute(f"""
                 insert into Clients
-                (ididentifier, first_name, second_name, mobile_number)
+                (identifier, first_name, second_name, mobile_number)
                 values
-                ('{ididentifier}','{first_name}','{second_name}','{mobile_number}')
+                ('{identifier}','{first_name}','{second_name}','{mobile_number}')
         """)
         for i in range(len(product_names)):
             self._execute(f"""
                 insert into Orders
-                (ididentifier, product_name, product_amount)
+                (identifier, product_name, product_amount)
                 values
-                ('{ididentifier}','{product_names[i]}','{product_amount[i]}')
+                ('{identifier}','{product_names[i]}','{product_amount[i]}')
             """)
 
-    def get(self):
+    def get_all(self):
         """"""
         
-        return self._execute("""select * from Clients""", read=True)
+        return {'clients': self._execute("select * from Clients", read=True),
+                'orders': self._execute("select * from Orders", read=True)}
+
+    def get(self, identifier):
+        """"""
+
+        return {'client': self._execute(f"select * from Clients where identifier='{identifier}';", read=True),
+                'order': self._execute(f"select * from Orders where identifier='{identifier}';", read=True)}
+
 
     def _execute(self, query: str, read: bool = False):
         """"""

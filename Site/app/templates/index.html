@@ -12,22 +12,24 @@
 
 <table style="width:100%">
     <tr>
-        <th>N</th>
-        <th>Ім'я</th>
-        <th>Прізвище</th>
-        <th>Моб. номер</th>
+        <th width="5%">N</th>
+        <th width="28%">Ім'я</th>
+        <th width="28%">Прізвище</th>
+        <th width="28%">Моб. номер</th>
+        <th width="11%">Замовлення</th>
     </tr>
 
-{% for client in clients[::-1] %}
+    {% for client in clients[::-1] %}
 
-    <tr>
-        <td>{{ client[0] }}</td>
-        <td>{{ client[1] }}</td>
-        <td>{{ client[2] }}</td>
-        <td>{{ client[3] }}</td>
-    </tr>
+        <tr>
+            <td>{{ client[0] }}</td>
+            <td>{{ client[1] }}</td>
+            <td>{{ client[2] }}</td>
+            <td>{{ client[3] }}</td>
+            <td><a href="{{ url_for('products', identifier=client[0]) }}">Переглянути</a></td>
+        </tr>
 
-{% endfor %}
+    {% endfor %}
 
 </table> 
         

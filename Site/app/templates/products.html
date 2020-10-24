@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Перегляд
+
+{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href="static/css/style.css">
+
+<table style="width:100%">
+    <tr>
+        <th width="5%">N</th>
+        <th width="28%">Ім'я</th>
+        <th width="28%">Прізвище</th>
+        <th width="28%">Моб. номер</th>
+        <th width="11%"><a href="/">Повернутись</a></th>
+    </tr>
+    <tr>
+        <th>{{ client[0][0] }}</th>
+        <th>{{ client[0][1] }}</th>
+        <th>{{ client[0][2] }}</th>
+        <th>{{ client[0][3] }}</th>
+    </tr>
+</table>
+
+<table style="width:100%">
+    <tr>
+        <th width="50%">Назва</th>
+        <th width="50%">Кількість</th>
+    </tr>
+
+    {% for a in order %}
+
+        <tr>
+            <td>{{ a[1] }}</td>
+            <td>{{ a[2] }}</td>
+        </tr>
+
+    {% endfor %}
+
+</table> 
+        
+{% endblock %}
