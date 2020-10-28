@@ -5,20 +5,19 @@ from app import app, database
 
 @app.route('/', methods=['GET'])
 def index():
-    clients, orders = database.get_all()['clients'], database.get_all()['orders']
-    return render_template('index.html', clients=clients, orders=orders)
+    data = database.get_all()
+    return render_template('index.html', data=data)
 
-@app.route('/products<identifier>', methods=['GET'])
-def products(identifier):
+@app.route('/show_products<order_id>', methods=['GET'])
+def show_products(order_id):
 
-    client, order = database.get(identifier)['client'], database.get(identifier)['order']
-    return render_template('products.html', client=client, order=order)
+    data = database.get(order_id)
+    return render_template('show_products.html', data=data)
 
-
-@app.route('/add', methods=['GET', 'POST'])
-def add():
+@app.route('/add_order', methods=['GET', 'POST'])
+def add_order():
     if request.method == 'POST':
         database.add(request.form)
         return redirect('/')
     if request.method == 'GET':
-        return render_template('add.html')
+        return render_template('add_order.html')

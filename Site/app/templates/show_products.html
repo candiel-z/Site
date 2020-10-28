@@ -8,8 +8,6 @@
 
 {% block body %}
 
-<link rel="stylesheet" href="static/css/style.css">
-
 <table style="width:100%">
     <tr>
         <th width="5%">N</th>
@@ -19,10 +17,10 @@
         <th width="11%"><a href="/">Повернутись</a></th>
     </tr>
     <tr>
-        <th>{{ client[0][0] }}</th>
-        <th>{{ client[0][1] }}</th>
-        <th>{{ client[0][2] }}</th>
-        <th>{{ client[0][3] }}</th>
+        <th>{{ data[0][0] }}</th>
+        <th>{{ data[0][1] }}</th>
+        <th>{{ data[0][2] }}</th>
+        <th>{{ data[0][3] }}</th>
     </tr>
 </table>
 
@@ -32,11 +30,11 @@
         <th width="50%">Кількість</th>
     </tr>
 
-    {% for a in order %}
+    {% for item in data[1] %}
 
         <tr>
-            <td>{{ a[1] }}</td>
-            <td>{{ a[2] }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
         </tr>
 
     {% endfor %}

@@ -8,7 +8,6 @@
 
 {% block body %}
 
-<link rel="stylesheet" href="static/css/style.css">
 
 <table style="width:100%">
     <tr>
@@ -19,14 +18,14 @@
         <th width="11%">Замовлення</th>
     </tr>
 
-    {% for client in clients[::-1] %}
+    {% for client in data[0][::-1] %}
 
         <tr>
             <td>{{ client[0] }}</td>
             <td>{{ client[1] }}</td>
             <td>{{ client[2] }}</td>
             <td>{{ client[3] }}</td>
-            <td><a href="{{ url_for('products', identifier=client[0]) }}">Переглянути</a></td>
+            <td><a href="{{ url_for('show_products', order_id=client[0]) }}">Переглянути</a></td>
         </tr>
 
     {% endfor %}

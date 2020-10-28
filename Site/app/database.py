@@ -8,63 +8,50 @@ class Database(object):
         """"""
         
 
-        if Config.DEBUG:
-            self._execute('drop table if exists Clients;')
-            self._execute('drop table if exists Orders;')
+        #if Config.DEBUG:
+        #    self._execute(Config.DATABASE['DROP_CLIENTS'])
+        #    self._execute(Config.DATABASE['DROP_ORDERS'])
 
-        self._execute("""
-            create table if not exists Clients (
-                    identifier integer unique,
-                    first_name text not null,
-                    second_name text not null,
-                    mobile_number text not null unique
-            );
-        """)
-        self._execute("""
-            create table if not exists Orders (
-                    identifier integer,
-                    product_name text not null,
-                    product_amount integer not null
-            );
-
-        """)
+        self._execute(Config.DATABASE['CREATE_CLIENTS'])
+        self._execute(Config.DATABASE['CREATE_ORDERS'])
 
     def add(self, data) -> None:
         """"""
         
-        identifier = data.get('identifier')
+        order_id = data.get('order_id')
         first_name = data.get('first_name')
         second_name = data.get('second_name')
         mobile_number = data.get('mobile_number')
 
         product_names = data.getlist('product_name')
-        product_amount = data.getlist('product_amount')
+        product_amounts = data.getlist('product_amount')
 
         self._execute(f"""
                 insert into Clients
-                (identifier, first_name, second_name, mobile_number)
+                (order_id, first_name, second_name, mobile_number)
                 values
-                ('{identifier}','{first_name}','{second_name}','{mobile_number}')
+                ('{order_id}','{first_name}','{second_name}','{mobile_number}')
         """)
+
         for i in range(len(product_names)):
             self._execute(f"""
                 insert into Orders
-                (identifier, product_name, product_amount)
+                (order_id, product_name, product_amount)
                 values
-                ('{identifier}','{product_names[i]}','{product_amount[i]}')
+                ('{order_id}','{product_names[i]}','{product_amounts[i]}')
             """)
 
     def get_all(self):
         """"""
         
-        return {'clients': self._execute("select * from Clients", read=True),
-                'orders': self._execute("select * from Orders", read=True)}
+        return [self._execute("select * from Clients", read=True),
+                self._execute("select * from Orders", read=True)]
 
-    def get(self, identifier):
+    def get(self, order_id):
         """"""
 
-        return {'client': self._execute(f"select * from Clients where identifier='{identifier}';", read=True),
-                'order': self._execute(f"select * from Orders where identifier='{identifier}';", read=True)}
+        return [self._execute(f"select * from Clients where order_id='{order_id}';", read=True)[0], 
+                self._execute(f"select * from Orders where order_id='{order_id}';", read=True)]
 
 
     def _execute(self, query: str, read: bool = False):
@@ -77,7 +64,7 @@ class Database(object):
                 data = cursor.fetchall()
                 return data
         except sqlite3.Error as e:
-            print('Database._execute |', e)
+            print('Database._execute | ', e)
         finally:
             connection.commit()
             connection.close()
@@ -86,10 +73,10 @@ class Database(object):
             """"""
 
             try:
-                connection = sqlite3.connect(Config.DATABASE)
+                connection = sqlite3.connect(Config.DATABASE['PATH'])
                 cursor = connection.cursor()
             except sqlite3.Error as e:
-                print('database._connect |', e)
+                print('Database._connect | ', e)
                 connection.close()
             else:
                 return connection, cursor
