@@ -3,3 +3,11 @@ table, th, td{
     border-collapse: collapse;
     text-align: center;
 }
+
+a:link, a:visited, a:active {
+    color: rgb(66, 67, 139);
+}
+
+a:hover {
+    color: rgb(150, 150, 250);
+}

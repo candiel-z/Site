@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
 <html>
-    <link rel="shortcut icon" href="static/img/favicon.png">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel= "shortcut icon" href= "{{ url_for('static', filename='img/favicon.png') }}"/>
+    <link rel= "stylesheet" href= "{{ url_for('static', filename='css/style.css') }}"/>    
     <head>
         <title>
             {% block title %}{% endblock %} | Site
@@ -10,8 +10,9 @@
     </head>
 
     <header>
-        <a href="/">Перегляд</a>
-        <a href="/add_order">Додати</a>
+        <a href="/"><b>Головна</b></a>
+        <a href="/view/id"><b>Перегляд</b></a>
+        <a href="/add"><b>Додати</b></a>
         <hr>
     </header>
 
