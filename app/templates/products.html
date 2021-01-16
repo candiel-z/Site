@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Товари
+
+{% endblock %}
+
+{% block body %}
+
+    <form action="/products" method="POST">
+        {{ add_form.product_name(size=20, minlength=1, maxlength=20, placeholder=add_form.product_name.label.text) }}
+        {{ add_form.product_price(size=20, minlength=1, maxlength=20, placeholder=add_form.product_price.label.text) }}
+        {{ add_form.add_submit(value=add_form.add_submit.label.text) }}
+
+        {% for field in add_form.errors %}
+            <br>
+            {{ add_form.errors[field][0] }}
+        {% endfor %}
+    </form>
+
+    <br>
+
+    <form action="/products" method="POST">
+        <table style="width:50%">
+            <tr>
+                <th width="44%">Назва</th>
+                <th width="44%">Ціна</th>
+                <th width="12%"></th>
+            </tr>
+
+            <div hidden id="del_name">{{ del_form.del_name }}</div>
+
+            {% for product in products %}
+
+                <tr>
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.product_price }}</td>
+                    <td>{{ del_form.del_submit(value=del_form.del_submit.label.text, onclick='setValue(this)') }}</td>
+                </tr>
+
+            {% endfor %}
+
+        </table> 
+    </form>
+
+    <script>
+        function setValue(el) {
+            document.getElementById("del_name").firstChild.value = el.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent;
+        }
+    </script>
+        
+{% endblock %}

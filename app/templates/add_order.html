@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Додати
+
+{% endblock %}
+
+{% block body %}
+
+    <form action="/add" method="POST">
+        {{ form.order_id(size=4, minlength=1, placeholder=form.order_id.label.text, value=next_order_id, onclick="this.select()") }}
+        {{ form.first_name(size=20, minlength=1, maxlength=20, placeholder=form.first_name.label.text) }}
+        {{ form.second_name(size=20, minlength=1, maxlength=20, placeholder=form.second_name.label.text) }}
+        {{ form.mobile_number(size=20, minlength=10, maxlength=10, placeholder=form.mobile_number.label.text) }}
+        {{ form.submit(value=form.submit.label.text) }}
+
+        {% for field in form.errors %}
+            <br>
+            {{ form.errors[field][0] }}
+        {% endfor %}
+
+        <p>
+            <input type="button" value="Додати ряд" onclick="addRow()">
+        </p>
+
+        <div id="dynamic_container">
+            {{ form.product_name(size=20, placeholder=form.product_name.label.text) }}
+            {{ form.product_amount(size=20, placeholder=form.product_amount.label.text, value=1, onclick="this.select()") }}
+        </div>
+    </form>
+
+    <script>
+        function addRow() {
+            var div = document.createElement('DIV');
+            div.innerHTML = '<div id="dynamic_container">{{ form.product_name(size=20, placeholder=form.product_name.label.text) }} {{ form.product_amount(size=20, placeholder=form.product_amount.label.text, value=1, onclick="this.select()") }}</div>';
+            var container = document.getElementById("dynamic_container");
+            container.appendChild(div.firstChild);
+        }
+        function removeRow(el) {
+            el.parentNode.remove(); 
+        }
+    </script>
+  
+{% endblock %}

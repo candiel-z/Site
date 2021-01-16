@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Перегляд
+
+{% endblock %}
+
+{% block body %}
+
+    <table style="width:100%">
+        <tr>
+            <th width="5%"><a href="view?sort_type=id">N</a></th>
+            <th width="25%"><a href="view?sort_type=first_name">Ім'я</a></th>
+            <th width="25%"><a href="view?sort_type=second_name">Прізвище</a></th>
+            <th width="25%"><a href="view?sort_type=mobile_number">Моб. номер</a></th>
+            <th width="10%"><a href="view?sort_type=sum">Сума</a></th>
+            <th width="10%">Замовлення</th>
+        </tr>
+
+        {% for client in clients %}
+
+            <tr>
+                <td>{{ client.order_id }}</td>
+                <td>{{ client.first_name }}</td>
+                <td>{{ client.second_name }}</td>
+                <td>{{ client.mobile_number }}</td>
+                <td>{{ client.summ }}</td>
+                <td><a href="view?order_id={{ client.order_id }}"><b>Переглянути</b></a></td>
+            </tr>
+
+        {% endfor %}
+
+    </table> 
+        
+{% endblock %}
